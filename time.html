@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Time</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the body */
+        body {
+            font-family: 'IBM Plex Mono', monospace, 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            padding: 1rem; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+            /* Ensure the text is centered vertically and horizontally */
+            text-align: center;
+        }
+
+        /* Make the time text even larger and center it */
+        #currentTime {
+            font-size: 10vw; /* Responsive font size based on viewport width */
+            line-height: 1; /* Adjust line height for better vertical centering */
+            color: #1a202c; /* Darker text color for better contrast on light background, almost black */
+            /* Removed tracking-wide as it might be too wide for very large fonts */
+        }
+
+        /* Media queries for larger screens to ensure font size doesn't become excessively large */
+        @media (min-width: 768px) {
+            #currentTime {
+                font-size: 8rem; /* A fixed large size for tablets and desktops */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #currentTime {
+                font-size: 10rem; /* Even larger for large desktops */
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="selection:bg-blue-200">
+    <div id="currentTime" class="font-bold text-gray-900">
+        Loading...
+    </div>
+
+    <script>
+        // Get the div element where the time will be displayed
+        const currentTimeDiv = document.getElementById('currentTime');
+
+        /**
+         * Updates the displayed time in the currentTimeDiv.
+         */
+        function updateTime() {
+            // Create a new Date object to get the current time
+            const now = new Date();
+
+            // Format the time options for a readable format
+            const options = {
+                hour: '2-digit',    // Display hour with two digits (e.g., 00, 13)
+                minute: '2-digit',  // Display minute with two digits (e.g., 05, 30)
+                second: '2-digit',  // Display second with two digits (e.g., 09, 45)
+                hour12: false       // Use 24-hour format
+            };
+
+            // Convert the Date object to a locale-specific time string
+            const timeString = now.toLocaleTimeString('en-US', options);
+
+            // Update the text content of the div
+            currentTimeDiv.textContent = timeString;
+        }
+
+        // Call updateTime immediately to display the time as soon as the page loads
+        updateTime();
+
+        // Set an interval to call updateTime every 1000 milliseconds (1 second)
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
